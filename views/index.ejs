@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Westridge Flag Football</title>
+  <script src="https://kit.fontawesome.com/297392fead.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <%- include('partials/navBar') %>
+
+  <!-- Player Stats Table -->
+  <div class="container mt-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Number</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+       <% players.forEach((player) => { %>
+        <tr>
+          <td>
+            <% if (player.playerImage) { %>
+              <!-- If there is an image, display it -->
+              <img src="<%= player.playerImage %>" alt="Player Image" style="max-width: 100px; max-height: 100px;">
+              <div><%= player.playerName %></div>
+            <% } else { %>
+              <!-- If there is no image, show an upload button -->
+              <form action="/uploadImage/<%= player._id %>" method="post" enctype="multipart/form-data">
+                <input type="file" name="playerImage" required>
+                <button type="submit">Upload Image</button>
+              </form>
+              <div><%= player.playerName %></div>
+            <% } %>
+          </td>
+
+          <td><%= player.playerNumber %></td>
+          <td><%= player.yr %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
